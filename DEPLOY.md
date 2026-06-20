@@ -4,9 +4,12 @@ This portfolio is a **Next.js static export** (`output: 'export'`) that deploys 
 GitHub Pages via GitHub Actions. Every push to `main` rebuilds and republishes the
 site automatically.
 
-- **Live URL:** https://vibes4.github.io
-- **Hosting:** GitHub Pages (user site)
-- **CI/CD:** `.github/workflows/deploy.yml`
+- **Live URL:** https://vibes4.github.io/vaibhav.dev/ (project repo `vaibhav.dev`)
+- **Hosting:** GitHub Pages
+- **CI/CD:** `.github/workflows/deploy.yml` (Node 24)
+- **Base path:** auto-detected — root for a user site, `/<repo>` for a project
+  repo. The `configure-pages` step injects it into the build, so CSS/JS load from
+  the right place no matter the repo name.
 
 ---
 
@@ -14,14 +17,11 @@ site automatically.
 
 ### 1. Create the repository
 
-Create a **public** repo named exactly:
+Create a **public** repo. Either works — the build adapts the base path automatically:
 
-```
-vibes4.github.io
-```
-
-> The name must match `<username>.github.io` for a user site. That gives the clean
-> root URL with no base path.
+- **Project repo** (e.g. `vaibhav.dev`) → served at `https://vibes4.github.io/<repo>/`.
+- **User site** (repo named exactly `vibes4.github.io`) → served at the clean root
+  `https://vibes4.github.io`.
 
 ### 2. Push the code
 
@@ -31,7 +31,7 @@ From the project root:
 git add -A
 git commit -m "Deploy portfolio to GitHub Pages"
 git branch -M main
-git remote add origin https://github.com/vibes4/vibes4.github.io.git
+git remote add origin https://github.com/vibes4/vaibhav.dev.git
 git push -u origin main
 ```
 
@@ -118,7 +118,7 @@ No base path is needed for a user site or a custom domain — only project repos
 | Symptom | Fix |
 | --- | --- |
 | First deploy fails on the **deploy** job | Set **Settings → Pages → Source → GitHub Actions**, then re-run the workflow. |
-| CSS/JS 404s, page unstyled | Ensure the repo is named `vibes4.github.io` (no base path). For a project repo you'd need `basePath` in `next.config.mjs`. |
+| CSS/JS 404s, page unstyled | Base path is auto-detected by the **Configure Pages** step — make sure it's present in the workflow and that **Settings → Pages → Source** is set to **GitHub Actions**, then re-run. |
 | `_next` assets 404 | Confirm `public/.nojekyll` exists and was committed. |
 | Images not loading | `images.unoptimized: true` must stay set — Pages can't optimize images. |
 | Resume / portrait 404 | They live in `public/` and are served from the site root; re-run the build. |

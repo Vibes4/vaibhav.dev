@@ -10,7 +10,7 @@ import {
   useMotionTemplate,
 } from 'framer-motion';
 import { ArrowUpRight, Github, Linkedin, MapPin } from 'lucide-react';
-import { site } from '@/lib/data';
+import { site, asset } from '@/lib/data';
 import { Magnetic } from '@/components/magnetic';
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -170,7 +170,7 @@ function PortraitStage() {
       )}
 
       <Image
-        src="/portrait-cut.webp"
+        src={asset('/portrait-cut.webp')}
         alt={`${site.name} — Full-Stack Engineer`}
         width={860}
         height={1151}

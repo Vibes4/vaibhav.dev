@@ -1,8 +1,17 @@
+// Base path for GitHub Pages project repos (e.g. "/vaibhav.dev"); empty for a
+// user site or custom domain. Injected by CI; safe-defaults to "" for local dev.
+const rawBase = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+const basePath = rawBase === '/' ? '' : rawBase;
+
+// Prefix a public/ asset with the base path. Needed for plain <a> hrefs and for
+// next/image, which doesn't apply basePath to `unoptimized` srcs in static export.
+export const asset = (path: string) => `${basePath}${path}`;
+
 export const site = {
   name: 'Vaibhav Kulkarni',
   role: 'Full-Stack Engineer (Backend-Focused)',
-  // GitHub Pages user site. Swap to a custom domain later if you add one.
-  url: 'https://vibes4.github.io',
+  // Full site URL (used for SEO/OG/sitemap). Injected by CI; falls back below.
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://vibes4.github.io',
   location: 'Bengaluru, India',
   email: 'vaibhav.developer.2022@gmail.com',
   phone: '+91 8105083708',
@@ -12,7 +21,8 @@ export const site = {
   github: 'https://github.com/vibes4',
   githubUser: 'vibes4',
   linkedin: 'https://linkedin.com/in/vaibhav-dev2022',
-  resume: '/Vaibhav_Resume.pdf',
+  // Plain <a href> assets aren't auto-prefixed by Next, so add the base path here.
+  resume: `${basePath}/Vaibhav_Resume.pdf`,
   tagline:
     'Building scalable backend systems, workflow automation platforms, and cloud-native applications.',
 };
