@@ -176,7 +176,7 @@ export const featuredRepos: Repo[] = [
     description:
       'Interview-prep guide covering Node.js, Express, NestJS, DSA, System Design, PostgreSQL, MongoDB, Kafka, CI/CD and more.',
     language: 'Markdown',
-    link: 'https://github.com/vibes4/vaibhav-engineering-life',
+    link: 'https://vibes4.github.io/vaibhav-engineering-life/',
   },
 ];
 
