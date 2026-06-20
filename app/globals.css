@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-sans: var(--font-inter);
+    --font-serif: var(--font-instrument);
+    --font-mono: var(--font-jetbrains);
+
+    /* Light theme */
+    --paper: 251 250 248;
+    --ink: 11 11 12;
+    --ink-soft: 24 24 27;
+    --card: 255 255 255;
+    --accent: 139 41 66;
+    --accent-soft: 168 50 79;
+  }
+
+  .dark {
+    /* Dark theme */
+    --paper: 9 9 11;
+    --ink: 240 239 237;
+    --ink-soft: 228 228 231;
+    --card: 24 24 27;
+    --accent: 214 100 124;
+    --accent-soft: 224 130 150;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-paper text-ink antialiased;
+    transition: background-color 0.4s ease, color 0.3s ease;
+  }
+
+  ::selection {
+    @apply bg-ink text-paper;
+  }
+
+  *:focus-visible {
+    outline: none;
+  }
+}
+
+@layer utilities {
+  .container-x {
+    @apply mx-auto w-full max-w-6xl px-6 md:px-8;
+  }
+
+  .section-label {
+    @apply mb-3 inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-accent;
+  }
+
+  .heading-xl {
+    @apply font-sans text-4xl font-semibold tracking-tightest md:text-5xl;
+  }
+
+  .heading-lg {
+    @apply font-sans text-3xl font-semibold tracking-tightest md:text-4xl;
+  }
+
+  .hairline {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-ink/15 to-transparent;
+  }
+
+  /* Feathers the portrait edges so it dissolves into the page in both themes */
+  .portrait-mask {
+    -webkit-mask-image: radial-gradient(72% 72% at 50% 42%, #000 46%, transparent 90%);
+    mask-image: radial-gradient(72% 72% at 50% 42%, #000 46%, transparent 90%);
+  }
+
+  /* Transparent-cutout hero portrait: edges are already clean, so we only add a
+     gentle bottom fade so the crossed arms dissolve into the section. */
+  .portrait-cut {
+    -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
+  }
+
+  /* Ambient aurora mesh (see components/backdrop.tsx) */
+  .aurora-blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(72px);
+    will-change: transform;
+  }
+  .aurora-1 {
+    top: -12%;
+    left: -8%;
+    width: 48vw;
+    height: 48vw;
+    max-width: 720px;
+    max-height: 720px;
+    background: radial-gradient(circle at 50% 50%, rgb(124 92 252 / 0.5), transparent 68%);
+    animation: drift-1 26s ease-in-out infinite;
+  }
+  .aurora-2 {
+    top: 18%;
+    right: -12%;
+    width: 44vw;
+    height: 44vw;
+    max-width: 640px;
+    max-height: 640px;
+    background: radial-gradient(circle at 50% 50%, rgb(59 130 246 / 0.42), transparent 68%);
+    animation: drift-2 32s ease-in-out infinite;
+  }
+  .aurora-3 {
+    bottom: -16%;
+    left: 28%;
+    width: 50vw;
+    height: 50vw;
+    max-width: 760px;
+    max-height: 760px;
+    background: radial-gradient(circle at 50% 50%, rgb(var(--accent) / 0.4), transparent 70%);
+    animation: drift-3 38s ease-in-out infinite;
+  }
+  /* Light theme stays whisper-quiet; dark theme can carry more glow. */
+  :root .aurora-blob { opacity: 0.18; }
+  .dark .aurora-blob { opacity: 0.32; }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgb(var(--ink) / 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--ink) / 0.045) 1px, transparent 1px);
+    background-size: 58px 58px;
+    -webkit-mask-image: radial-gradient(ellipse 75% 60% at 50% 28%, #000, transparent 82%);
+    mask-image: radial-gradient(ellipse 75% 60% at 50% 28%, #000, transparent 82%);
+  }
+
+  /* Card hover depth (Task 5) — lift + accent ring + soft shadow. */
+  .card-depth {
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.35s ease, border-color 0.35s ease;
+  }
+  .card-depth:hover {
+    transform: translateY(-4px);
+    border-color: rgb(var(--accent) / 0.35);
+    box-shadow: 0 18px 40px -22px rgb(var(--accent) / 0.45),
+      0 8px 22px -16px rgb(0 0 0 / 0.3);
+  }
+}
+
+@keyframes drift-1 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(6%, 8%, 0) scale(1.12); }
+}
+@keyframes drift-2 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.05); }
+  50% { transform: translate3d(-7%, 5%, 0) scale(0.92); }
+}
+@keyframes drift-3 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(4%, -7%, 0) scale(1.1); }
+}
+
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.dark .grain {
+  opacity: 0.04;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-blob { animation: none !important; }
+  html { scroll-behavior: auto; }
+}
