@@ -14,7 +14,7 @@ import { site, asset } from '@/lib/data';
 import { Magnetic } from '@/components/magnetic';
 
 const ease = [0.22, 1, 0.36, 1] as const;
-const stack = ['Node.js', 'NestJS', 'Kubernetes', 'RabbitMQ', 'PostgreSQL'];
+const stack = ['Node.js', 'NestJS', 'Angular', 'Kubernetes', 'RabbitMQ', 'PostgreSQL'];
 
 export function Hero() {
   return (

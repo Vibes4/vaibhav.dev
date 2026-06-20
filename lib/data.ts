@@ -50,25 +50,36 @@ export const metrics = [
   { value: '42', label: 'Modules Touched', sub: 'services, apps & shared libraries' },
 ];
 
-export type Experience = {
-  company: string;
+export type Project2 = {
+  name: string;
   role: string;
   period: string;
-  location: string;
-  product: string;
   stack: string[];
   achievements: string[];
 };
 
-export const experience: Experience[] = [
-  {
-    company: 'Neutrinos Software Services Pvt Ltd',
-    role: 'SDE II',
-    period: 'Aug 2022 — Present',
-    location: 'Bengaluru',
-    product: 'Alpha — Low-Code Workflow Automation Platform',
-    stack: ['NestJS', 'Angular', 'RabbitMQ', 'PostgreSQL', 'jBPM', 'Kubernetes', 'Helm'],
-    achievements: [
+export type Company = {
+  name: string;
+  location: string;
+  period: string;
+  summary: string;
+  projects: Project2[];
+};
+
+// A single company (Aug 2022 — Present) with two products worked on under it.
+export const company: Company = {
+  name: 'Neutrinos Software Services Pvt Ltd',
+  location: 'Bengaluru, India',
+  period: 'Aug 2022 — Present',
+  summary:
+    'Full-stack product engineering across two low-code platforms — owning backend services end-to-end, platform reliability, and release work.',
+  projects: [
+    {
+      name: 'Alpha — Low-Code Workflow Automation Platform',
+      role: 'SDE II',
+      period: 'Current',
+      stack: ['NestJS', 'Angular', 'RabbitMQ', 'PostgreSQL', 'jBPM', 'Kubernetes', 'Helm'],
+      achievements: [
       "Built config-type adapters and implemented JSON diffing with tag-based config fetching on top of the platform's Change Tracking (Config Ledger) system, and resolved defects across config versioning flows.",
       'Built and published reusable SDKs and shared libraries (config/API and admin-filters) consumed across multiple backend services, reducing duplicated configuration code.',
       'Delivered a production BPM Archival service for backup, restore, and deletion of high-volume process data with restartable batch processing, keeping production databases performant at scale.',
@@ -79,19 +90,18 @@ export const experience: Experience[] = [
       'Helped with release integration — reconciling release, hotfix, and snapshot branches to keep the platform shippable.',
     ],
   },
-  {
-    company: 'Neutrinos Software Services Pvt Ltd',
-    role: 'Software Engineer',
-    period: 'Earlier tenure',
-    location: 'Bengaluru',
-    product: 'Neutrinos Studio — Low-Code Full-Stack Builder',
-    stack: ['Angular', 'Node.js', 'Electron'],
-    achievements: [
-      'Resolved 30+ production issues in 30 days, owning platform stability during a critical hardening window and reducing customer-reported failures.',
-      'Built a database entity designer and internal tooling that accelerated customer-application generation for internal builders.',
-    ],
-  },
-];
+    {
+      name: 'Neutrinos Studio — Low-Code Full-Stack Builder',
+      role: 'Software Engineer',
+      period: 'Earlier',
+      stack: ['Angular', 'Node.js', 'Electron'],
+      achievements: [
+        'Resolved 30+ production issues in 30 days, owning platform stability during a critical hardening window and reducing customer-reported failures.',
+        'Built a database entity designer and internal tooling that accelerated customer-application generation for internal builders.',
+      ],
+    },
+  ],
+};
 
 export type Project = {
   name: string;
@@ -202,7 +212,6 @@ export const skills = [
 
 export const nav = [
   { label: 'About', href: '#about' },
-  { label: 'Impact', href: '#impact' },
   { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
   { label: 'Skills', href: '#skills' },

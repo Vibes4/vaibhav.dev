@@ -3,6 +3,7 @@ import { Inter, Instrument_Serif, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { site } from '@/lib/data';
 import { Backdrop } from '@/components/backdrop';
+import { SmoothScroll } from '@/components/smooth-scroll';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 const instrument = Instrument_Serif({
@@ -69,7 +70,7 @@ const jsonLd = {
   '@type': 'Person',
   name: site.name,
   jobTitle: 'Full-Stack Engineer (Backend-Focused)',
-  email: `mailto:${site.email}`,
+  email: site.email,
   url: site.url,
   address: { '@type': 'PostalAddress', addressLocality: 'Bengaluru', addressCountry: 'IN' },
   sameAs: [site.github, site.linkedin],
@@ -104,6 +105,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <SmoothScroll />
         <Backdrop />
         <div className="grain" aria-hidden />
         {children}

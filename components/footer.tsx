@@ -16,9 +16,6 @@ export function Footer() {
           <a href={site.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="transition-colors hover:text-ink">
             <Linkedin size={17} />
           </a>
-          <a href={`mailto:${site.email}`} aria-label="Email" className="transition-colors hover:text-ink">
-            <Mail size={17} />
-          </a>
         </div>
       </div>
     </footer>

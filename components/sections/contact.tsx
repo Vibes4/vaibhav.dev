@@ -17,12 +17,12 @@ export function Contact() {
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     } catch {
-      window.location.href = `mailto:${site.email}`;
+      // Clipboard unavailable (e.g. non-secure context) — fail silently.
     }
   };
 
   return (
-    <section id="contact" className="border-t border-ink/10 py-20 md:py-28">
+    <section id="contact" className="overflow-hidden border-t border-ink/10 py-20 md:py-28">
       <div className="container-x grid items-center gap-12 md:grid-cols-2">
         <Reveal>
           <span className="section-label">Contact</span>
@@ -32,9 +32,11 @@ export function Contact() {
             a WhatsApp message — I usually reply within a few hours.
           </p>
 
-          <div className="mt-8 flex items-center gap-2 text-sm text-ink/50">
-            <MapPin size={15} /> {site.location}
-            <span className="ml-2 inline-flex items-center gap-1.5 text-ink/45">
+          <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-ink/50">
+            <span className="inline-flex items-center gap-2">
+              <MapPin size={15} /> {site.location}
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-ink/45">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-60" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />

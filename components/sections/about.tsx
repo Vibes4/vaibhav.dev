@@ -25,10 +25,16 @@ export function About() {
           </div>
         </Reveal>
 
-        <div className="space-y-6">
+        <div className="about-prose max-w-[60ch] space-y-6">
           {about.paragraphs.map((p, i) => (
             <Reveal key={i} delay={i * 0.08}>
-              <p className="text-lg leading-relaxed text-ink/75 first:text-xl first:text-ink/85">
+              <p
+                className={
+                  i === 0
+                    ? 'text-[1.35rem] font-medium leading-[1.6] tracking-[-0.01em] text-ink/90'
+                    : 'text-[1.0625rem] leading-[1.85] text-ink/65'
+                }
+              >
                 {p}
               </p>
             </Reveal>

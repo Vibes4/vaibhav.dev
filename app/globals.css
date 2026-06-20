@@ -36,6 +36,8 @@
 
   body {
     @apply bg-paper text-ink antialiased;
+    /* `clip` stops stray horizontal overflow without breaking position: sticky. */
+    overflow-x: clip;
     transition: background-color 0.4s ease, color 0.3s ease;
   }
 
@@ -45,6 +47,42 @@
 
   *:focus-visible {
     outline: none;
+  }
+
+  /* Custom scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--accent) / 0.45) transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    border: 3px solid rgb(var(--paper));
+    background: linear-gradient(rgb(124 92 252 / 0.55), rgb(var(--accent) / 0.65));
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(rgb(124 92 252 / 0.8), rgb(var(--accent) / 0.9));
+  }
+
+  /* Lenis smooth-scroll (components/smooth-scroll.tsx) */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
   }
 }
 
@@ -130,6 +168,57 @@
     background-size: 58px 58px;
     -webkit-mask-image: radial-gradient(ellipse 75% 60% at 50% 28%, #000, transparent 82%);
     mask-image: radial-gradient(ellipse 75% 60% at 50% 28%, #000, transparent 82%);
+  }
+
+  /* Cursor-follow glow in the global backdrop (components/backdrop.tsx) */
+  .cursor-glow {
+    background: radial-gradient(
+      260px circle at var(--cx, 50%) var(--cy, 50%),
+      rgb(124 92 252 / 0.12),
+      rgb(59 130 246 / 0.07) 36%,
+      transparent 62%
+    );
+    transition: opacity 0.4s ease;
+  }
+  .dark .cursor-glow {
+    background: radial-gradient(
+      280px circle at var(--cx, 50%) var(--cy, 50%),
+      rgb(139 110 255 / 0.18),
+      rgb(59 130 246 / 0.11) 38%,
+      transparent 64%
+    );
+  }
+
+  /* Technology chips with brand-coloured hover (components/sections/skills.tsx) */
+  .tech-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgb(var(--ink) / 0.1);
+    background: rgb(var(--card) / 0.7);
+    padding: 0.5rem 0.85rem;
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+  }
+  .tech-chip:hover {
+    transform: translateY(-3px);
+    border-color: var(--brand, rgb(var(--accent)));
+    box-shadow: 0 12px 26px -18px rgb(0 0 0 / 0.35);
+  }
+  .tech-ico {
+    color: rgb(var(--ink) / 0.5);
+    transition: color 0.25s ease;
+  }
+  .tech-chip:hover .tech-ico {
+    color: var(--brand, rgb(var(--accent)));
+  }
+  .tech-label {
+    color: rgb(var(--ink) / 0.8);
+    transition: color 0.25s ease;
+  }
+  .tech-chip:hover .tech-label {
+    color: rgb(var(--ink));
   }
 
   /* Card hover depth (Task 5) — lift + accent ring + soft shadow. */

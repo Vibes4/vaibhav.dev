@@ -1,5 +1,7 @@
+import type { CSSProperties } from 'react';
 import { Reveal, Stagger, StaggerItem } from '@/components/reveal';
 import { skills } from '@/lib/data';
+import { TECH, TechIcon } from '@/lib/tech';
 
 export function Skills() {
   return (
@@ -10,27 +12,33 @@ export function Skills() {
           <h2 className="heading-lg mb-14 max-w-lg">Technologies I work with.</h2>
         </Reveal>
 
-        <Stagger className="grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="space-y-10">
           {skills.map((group) => (
-            <StaggerItem key={group.category}>
-              <div className="border-t border-ink/15 pt-4">
-                <h3 className="mb-3 text-sm font-semibold uppercase tracking-[0.12em] text-ink/40">
+            <Reveal key={group.category}>
+              <div className="grid gap-x-8 gap-y-4 md:grid-cols-[160px_1fr] md:items-start">
+                <h3 className="pt-2 text-sm font-semibold uppercase tracking-[0.12em] text-ink/40">
                   {group.category}
                 </h3>
-                <ul className="flex flex-wrap gap-2">
-                  {group.items.map((item) => (
-                    <li
-                      key={item}
-                      className="rounded-lg border border-ink/10 bg-card/70 px-3 py-1.5 text-sm text-ink/80 transition-colors hover:border-accent/40 hover:text-ink"
-                    >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                <Stagger className="flex flex-wrap gap-2.5">
+                  {group.items.map((item) => {
+                    const tech = TECH[item] ?? { label: item };
+                    return (
+                      <StaggerItem key={item}>
+                        <div
+                          className="tech-chip"
+                          style={tech.color ? ({ '--brand': tech.color } as unknown as CSSProperties) : undefined}
+                        >
+                          <TechIcon tech={tech} className="tech-ico h-[18px] w-[18px] shrink-0" />
+                          <span className="tech-label text-sm font-medium">{tech.label}</span>
+                        </div>
+                      </StaggerItem>
+                    );
+                  })}
+                </Stagger>
               </div>
-            </StaggerItem>
+            </Reveal>
           ))}
-        </Stagger>
+        </div>
       </div>
     </section>
   );
